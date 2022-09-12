@@ -23,5 +23,6 @@ from boook1 import settings
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('user/', include(myauth)),
+    path('mycart/', include('mycart.urls', namespace='mycart')),
     path('', include(mycontent)),
 ] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

@@ -29,7 +29,28 @@
           <li><a href="#" class="nav-link px-2 text-white">About</a></li>
         </ul>
 
+        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
 
+          <div class="col col-lg-2" >
+          <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">
+                <img src="https://github.com/twbs.png" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+          </a>
+
+          <div class="dropdown-menu">
+  <form method="POST" class="px-4 py-3">
+      {% csrf_token %}
+    <div class="form-group">
+
+      <label>Title</label>
+        {{ search_form.title }}
+    </div>
+    <div class="form-group">
+        {{ search_form.author }}
+    </div>
+    <button type="submit" class="btn btn-primary" value="Search">Search</button>
+  </form>
+</div>
+        </div>
 
           {% if user.is_authenticated %}
           <div class="col col-lg-2" >
@@ -42,7 +63,7 @@
           </a>
           <ul class="dropdown-menu text-small shadow">
               {% if user.is_staff %}
-            <li><a class="dropdown-item" href="#">New Book</a></li>
+            <li><a class="dropdown-item" href="{% url "mycontent:book_create" %}">New Book</a></li>
               {% endif %}
             <li><a class="dropdown-item" href="#">SavedBooks</a></li>
             <li><a class="dropdown-item" href="#">Settings</a></li>
@@ -51,17 +72,14 @@
             <li><a class="dropdown-item" href={% url 'myauth:logout' %}>Sign out</a></li>
           </ul>
         </div>
-        {% endif %}
+        {% else %}
 
-        <form class="col-12 col-lg-auto mb-3 mb-lg-0 me-lg-3" role="search">
-
-          <input type="search" class="form-control form-control-dark text-bg-dark" placeholder="Search..." aria-label="Search">
-        </form>
 
         <div class="text-end">
           <a href={% url 'myauth:login' %}><button type="button" class="btn btn-outline-light me-2">Login</button></a>
           <a href={% url 'myauth:sign_up' %}><button type="button" class="btn btn-warning">Sign-up</button></a>
         </div>
+        {% endif %}
 
       </div>
 

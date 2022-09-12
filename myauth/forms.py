@@ -3,6 +3,8 @@ from django.contrib.auth.forms import AuthenticationForm, UsernameField, UserCre
 
 from django import forms
 
+from .models import Category
+
 User = get_user_model()
 
 
@@ -10,7 +12,6 @@ class MyUserCreationForm(forms.ModelForm):
     class Meta:
         model = User
         fields = ('username', 'password')
-
 
 # class UserLoginForm(AuthenticationForm):
 #     def __init__(self, *args, **kwargs):

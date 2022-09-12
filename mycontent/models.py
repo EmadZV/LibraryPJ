@@ -3,25 +3,25 @@ from django.db import models
 from django.db.models import Count
 from django.urls import reverse
 from django.utils.text import slugify
-from myshop.models import Price
+# from myshop.models import Price
 import myauth.models
 
 
 class Book(models.Model):
     title = models.CharField(max_length=100)
     slug = models.SlugField(null=True, blank=True, unique=True)
-    mytranslator = models.ManyToManyField('myauth.Translator', )
+    mytranslator = models.ManyToManyField('myauth.Translator',)
     cover = models.ImageField()
     created = models.DateTimeField(auto_now_add=True)
     modified = models.DateTimeField(auto_now=True)
     description = models.TextField()
-    author = models.ManyToManyField('myauth.Author', )
-    publisher = models.ForeignKey('myauth.Publisher', on_delete=models.CASCADE)
-    category = models.ManyToManyField('myauth.Category', )
-    active = models.BooleanField()
+    author = models.ManyToManyField('myauth.Author',)
+    publisher = models.ForeignKey('myauth.Publisher', on_delete=models.CASCADE, null=True)
+    category = models.ManyToManyField('myauth.Category',)
+    active = models.BooleanField(default=True)
     file = models.FileField(upload_to='filamoon/', null=True)
     stars = models.DecimalField(max_digits=3, decimal_places=2, null=True)
-    price = models.OneToOneField('myshop.Price', on_delete=models.CASCADE, null=True)
+    price = models.IntegerField(null=True)
 
     def save(self, *args, **kwargs):
         if not self.slug:

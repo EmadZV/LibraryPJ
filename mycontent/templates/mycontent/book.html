@@ -3,7 +3,18 @@
 {% extends "base.html" %}
 {% block title %}My amazing library{% endblock %}
 {% block content %}
+    <img src="{{ book.cover.url }}">
 
-{{ book.title }}
-
+    <br>
+    {{ book.title }}
+    <br>
+    {{ book.author }}
+    <br>
+    {% if book.get_price == None %}Nadarim{% else %}{{ book.get_price }}{% endif %}
+    <br>
+       <form action="{% url "mycart:cart_add" book.id %}" method="POST">
+           {{ cart_book_form }}
+           {% csrf_token %}
+           <input type="submit" value="Add to cart">
+       </form>
 {% endblock %}

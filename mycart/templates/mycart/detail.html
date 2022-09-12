@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+{% extends "base.html" %}
+{% block title %}Shoping Cart{% endblock %}
+
+{% block content %}
+<h1>Shoping Cart</h1>
+<table class="cart">
+    <thead>
+    <tr>
+        <th>Image</th>
+        <th>Product</th>
+        <th>Quantity</th>
+        <th>Remove</th>
+        <th>Unit Price</th>
+        <th>Price</th>
+    </tr>
+    </thead>
+    <tbody>
+   {% for item in cart %}
+    {% with book=cart.book %}
+    <tr>
+        <td>
+            <a href="{{ book.get_absolute_url }}">
+                <img src="{% if product.image %}{{ product.image.url }}{% endif %}">
+{#                         {% else %}{% static "badanmaar.png" %}{% endif %}">#}
+            </a>
+        </td>
+    <td> {{ book.title }}</td>
+    <td> {{ item.quantity }}</td>
+    <td>
+        <form action="{% url "mycart:cart_remove" book %}" method="POST">
+            <input type="submit" value="Remove">
+            {% csrf_token %}
+        </form>
+    </td>
+    <td class="num">T{{ item.price }}</td>
+    <td class="num">T{{ item.total_price }}</td>
+    </tr>
+    {% endwith %}
+    {% endfor %}
+    <tr class="total">
+        <td>Total</td>
+        <td colspan="4"></td>
+        <td class="num">T{{ cart.get_total_price }}</td>
+    </tr>
+    </tbody>
+</table>
+<p class="text-right">
+    <a href="{% url "mycontent:landing_page" %}" class="buttonlight">Continue Shopping</a>
+    <a href="#" class="button">CheckOut</a>
+</p>
+{% endblock %}

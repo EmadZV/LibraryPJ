@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load crispy_forms_filters %}
+<!DOCTYPE html>
+<html lang="en">
+{% block title %}My amazing library{% endblock %}
+{% block content %}
+    {% if newpost %}
+ <h2>Your book has been added.</h2>
+{% else %}
+ <h2>Add a new book</h2>
+ <form method="POST">
+ {% csrf_token %}
+     {{ form.title|as_crispy_field }}
+     {{ form.description|as_crispy_field }}
+     {{ form.cover|as_crispy_field }}
+{#    <a href="{% url 'post' %}"></a>#}
+          <br>
+
+ <p><input type="submit" value="Add POST"></p>
+ </form>
+{% endif %}
+{% endblock %}
+</html>

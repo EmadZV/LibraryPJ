@@ -7,5 +7,6 @@ app_name = 'mycontent'
 
 urlpatterns = [
     path('', views.landing_page, name='landing_page'),
-    path('book/<slug:book_slug>', views.book, name='book')
+    path('book/<slug:book_slug>', views.book, name='book'),
+    path('create/', views.book_create, name='book_create')
 ]
