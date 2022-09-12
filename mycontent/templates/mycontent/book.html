@@ -12,9 +12,11 @@
     <br>
     {% if book.get_price == None %}Nadarim{% else %}{{ book.get_price }}{% endif %}
     <br>
-       <form action="{% url "mycart:cart_add" book.id %}" method="POST">
-           {{ cart_book_form }}
-           {% csrf_token %}
-           <input type="submit" value="Add to cart">
-       </form>
+   
+   <form action='{% url "mycart:cart_add" book.id %}' method="POST">
+       {% csrf_token %}
+       {{ cart_book_form }}
+       <input type="submit" value="Add to cart">
+   </form>
+
 {% endblock %}

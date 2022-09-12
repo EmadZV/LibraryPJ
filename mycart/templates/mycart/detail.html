@@ -17,8 +17,9 @@
     </tr>
     </thead>
     <tbody>
+
    {% for item in cart %}
-    {% with book=cart.book %}
+    {% with book=item.book %}
     <tr>
         <td>
             <a href="{{ book.get_absolute_url }}">
@@ -29,10 +30,11 @@
     <td> {{ book.title }}</td>
     <td> {{ item.quantity }}</td>
     <td>
-        <form action="{% url "mycart:cart_remove" book %}" method="POST">
-            <input type="submit" value="Remove">
+        <form action='{% url "mycart:cart_remove" book.id %}' method="POST">
             {% csrf_token %}
+            <input type="submit" value="Remove">
         </form>
+
     </td>
     <td class="num">T{{ item.price }}</td>
     <td class="num">T{{ item.total_price }}</td>

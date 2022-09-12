@@ -16,7 +16,7 @@ class Cart(object):
     def add(self, book, quantity=1, override_quantity=False):
         book_id = str(book.id)
         if book_id not in self.cart:
-            self.cart[book_id] = {'quantity': 0, 'price': str(book.price.price)}
+            self.cart[book_id] = {'quantity': 0, 'price': str(book.price)}
             # import pdb;
             # pdb.set_trace()
         if override_quantity:
@@ -39,12 +39,12 @@ class Cart(object):
         books = Book.objects.filter(id__in=book_ids)
 
         cart = self.cart.copy()
+
         for book in books:
 
             cart[str(book.id)]['book'] = book
-            import pdb; pdb.set_trace()
-        for item in cart.values():
 
+        for item in cart.values():
             item['price'] = Decimal(item['price'])
             item['total_price'] = item['price'] * item['quantity']
             yield item
