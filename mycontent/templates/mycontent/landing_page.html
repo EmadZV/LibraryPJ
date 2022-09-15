@@ -12,6 +12,33 @@
 
 <div class="row row-cols-1 row-cols-lg-3 align-items-stretch g-4 py-5">
 {#  <div class="carousel-inner py-4">#}
+{% if search_input %}
+{% for searched_book in search_input %}
+    <a href="{{ searched_book.get_absolute_url }}">
+      <div class="col">
+        <div class="card card-cover h-100 overflow-hidden text-bg-dark rounded-4 shadow-lg" style="background-image: url({{ latest_books.3.cover.url }}),
+url({% static 'css/abstract-grunge-decorative-relief-navy-blue-stucco-wall-texture-wide-angle-rough-colored-background_1258-28311.jpg' %});
+ background-repeat: no-repeat; background-color: #b6d4fe; background-size: contain ;">
+          <div class="d-flex flex-column h-100 p-5 pb-3 text-white text-shadow-1">
+            <h2 class="pt-5 mt-5 mb-4 display-6 lh-1 fw-bold text-end shadow-lg bg-success bg-opacity-50 bg-body  bg-gradient bg rounded">{{ searched_book }}</h2>
+            <ul class="d-flex list-unstyled mt-auto">
+              <li class="me-auto">
+    <img src="{{ book.cover.url }}" alt="Bootstrap" width="32" height="32" class="rounded-circle border border-white">
+              </li>
+              <li class="d-flex align-items-center me-3">
+                <small>Price</small>
+              </li>
+              <li class="d-flex align-items-center">
+                <small>{% if searched_book.get_price == None %}Nadarim{% else %}{{ searched_book.get_price }}{% endif %}</small>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </a>
+{% endfor %}
+  </div>
+{% endif %}
 
 {% for book in latest_books %}
     <a href="{{ book.get_absolute_url }}">

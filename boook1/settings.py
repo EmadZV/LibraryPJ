@@ -43,6 +43,7 @@ INSTALLED_APPS = [
     'bootstrap5',
     'sorl.thumbnail',
     'crispy_forms',
+    'celery'
 
 ]
 
@@ -83,20 +84,19 @@ WSGI_APPLICATION = 'boook1.wsgi.application'
 # https://docs.djangoproject.com/en/4.1/ref/settings/#databases
 
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    },
     # 'default': {
-    #     'ENGINE': 'django.db.backends.postgresql_psycopg2',
-    #     'NAME': 'library',
-    #     'USER': 'postgres',
-    #     'PASSWORD': '51257108',
-    #     'HOST': 'localhost',
-    #     'PORT': '',
-    #     }
+    #     'ENGINE': 'django.db.backends.sqlite3',
+    #     'NAME': BASE_DIR / 'db.sqlite3',
+    # },
+    'default': {
+        'ENGINE': 'django.db.backends.postgresql_psycopg2',
+        'NAME': 'library',
+        'USER': 'postgres',
+        'PASSWORD': '51257108',
+        'HOST': 'localhost',
+        'PORT': '',
     }
-
+}
 
 # Password validation
 # https://docs.djangoproject.com/en/4.1/ref/settings/#auth-password-validators
@@ -152,3 +152,19 @@ LOGOUT_REDIRECT_URL = "mycontent:landing_page"
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
 
 CART_SESSION_ID = 'mycart'
+
+# Celery configuration
+imports = ("mycontent.tasks",)
+
+beat_schedule = {
+    'my-add-task-schedule': {
+        'task': 'mycontent.tasks.daily_message',
+        'schedule': 20.0,  # doostan inm okeye 20.
+    },
+}
+
+# task_serializer = 'json'
+
+timezone = 'Asia/Tehran'
+
+enable_utc = True

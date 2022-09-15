@@ -17,6 +17,9 @@ class CommentCreateForm(forms.ModelForm):
 
 
 class SearchForm(forms.ModelForm):
+    author = forms.CharField(max_length=20, required=False)
+    title = forms.CharField(max_length=20, required=False)
+
     class Meta:
         model = Book
         fields = ('title', 'author')

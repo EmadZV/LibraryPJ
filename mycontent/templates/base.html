@@ -47,7 +47,8 @@
     <div class="form-group">
         {{ search_form.author }}
     </div>
-    <button type="submit" class="btn btn-primary" value="Search">Search</button>
+{#          <button type="submit" formaction='{% url "mycontent:search_result" %}'  class="btn btn-primary" value="Search">Search</button>#}
+          <input type="submit" formaction='{% url "mycontent:search_result" %}'  class="btn btn-primary" value="Search"/>
   </form>
 </div>
         </div>
